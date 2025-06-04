@@ -24,9 +24,9 @@ public class MyBlogUtils {
             return "";
         }
         value = value.toLowerCase();
-        value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
-        value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
-        value = value.replaceAll("'", "& #39;");
+        value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
+        value = value.replaceAll("'", "&#39;");
         value = value.replaceAll("onload", "0nl0ad");
         value = value.replaceAll("xml", "xm1");
         value = value.replaceAll("window", "wind0w");
