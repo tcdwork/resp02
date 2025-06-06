@@ -2,6 +2,7 @@ package com.site.blog.my.core.controller.blog;
 
 import cn.hutool.captcha.ShearCaptcha;
 import com.site.blog.my.core.controller.vo.BlogDetailVO;
+import com.site.blog.my.core.controller.vo.BlogListVO;
 import com.site.blog.my.core.entity.BlogComment;
 import com.site.blog.my.core.entity.BlogLink;
 import com.site.blog.my.core.service.*;
@@ -58,7 +59,7 @@ public class MyBlogController {
      */
     @GetMapping({"/page/{pageNum}"})
     public String page(HttpServletRequest request, @PathVariable("pageNum") int pageNum) {
-        PageResult blogPageResult = blogService.getBlogsForIndexPage(pageNum);
+        PageResult<BlogListVO> blogPageResult = blogService.getBlogsForIndexPage(pageNum);
         if (blogPageResult == null) {
             return "error/error_404";
         }
@@ -119,7 +120,7 @@ public class MyBlogController {
      */
     @GetMapping({"/tag/{tagName}/{page}"})
     public String tag(HttpServletRequest request, @PathVariable("tagName") String tagName, @PathVariable("page") Integer page) {
-        PageResult blogPageResult = blogService.getBlogsPageByTag(tagName, page);
+        PageResult<BlogListVO> blogPageResult = blogService.getBlogsPageByTag(tagName, page);
         request.setAttribute("blogPageResult", blogPageResult);
         request.setAttribute("pageName", "标签");
         request.setAttribute("pageUrl", "tag");
@@ -148,7 +149,7 @@ public class MyBlogController {
      */
     @GetMapping({"/category/{categoryName}/{page}"})
     public String category(HttpServletRequest request, @PathVariable("categoryName") String categoryName, @PathVariable("page") Integer page) {
-        PageResult blogPageResult = blogService.getBlogsPageByCategory(categoryName, page);
+        PageResult<BlogListVO> blogPageResult = blogService.getBlogsPageByCategory(categoryName, page);
         request.setAttribute("blogPageResult", blogPageResult);
         request.setAttribute("pageName", "分类");
         request.setAttribute("pageUrl", "category");
@@ -177,7 +178,7 @@ public class MyBlogController {
      */
     @GetMapping({"/search/{keyword}/{page}"})
     public String search(HttpServletRequest request, @PathVariable("keyword") String keyword, @PathVariable("page") Integer page) {
-        PageResult blogPageResult = blogService.getBlogsPageBySearch(keyword, page);
+        PageResult<BlogListVO> blogPageResult = blogService.getBlogsPageBySearch(keyword, page);
         request.setAttribute("blogPageResult", blogPageResult);
         request.setAttribute("pageName", "搜索");
         request.setAttribute("pageUrl", "search");
