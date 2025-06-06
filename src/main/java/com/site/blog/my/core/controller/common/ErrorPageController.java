@@ -14,19 +14,11 @@ import java.util.Map;
 @Controller
 public class ErrorPageController implements ErrorViewResolver {
 
-    private static ErrorPageController errorPageController;
+    private final ErrorAttributes errorAttributes;
 
     @Autowired
-    private ErrorAttributes errorAttributes;
-
     public ErrorPageController(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
-    }
-
-    public ErrorPageController() {
-        if (errorPageController == null) {
-            errorPageController = new ErrorPageController(errorAttributes);
-        }
     }
 
     @Override
