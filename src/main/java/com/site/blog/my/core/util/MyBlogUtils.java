@@ -1,19 +1,25 @@
 package com.site.blog.my.core.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * @author 13
  */
 public class MyBlogUtils {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyBlogUtils.class);
+
     public static URI getHost(URI uri) {
         URI effectiveURI = null;
         try {
             effectiveURI = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), null, null, null);
-        } catch (Throwable var4) {
+        } catch (URISyntaxException e) {
+            logger.error("Failed to parse host URI", e);
             effectiveURI = null;
         }
         return effectiveURI;
