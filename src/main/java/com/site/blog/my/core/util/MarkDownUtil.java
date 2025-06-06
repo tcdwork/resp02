@@ -10,6 +10,11 @@ import org.springframework.util.StringUtils;
 import java.util.Arrays;
 
 public class MarkDownUtil {
+
+    private static final java.util.List<Extension> EXTENSIONS = Arrays.asList(TablesExtension.create());
+    private static final Parser PARSER = Parser.builder().extensions(EXTENSIONS).build();
+    private static final HtmlRenderer HTML_RENDERER = HtmlRenderer.builder().extensions(EXTENSIONS).build();
+
     /**
      * 转换md格式为html
      *
@@ -20,11 +25,7 @@ public class MarkDownUtil {
         if (!StringUtils.hasText(markdownString)) {
             return "";
         }
-        java.util.List<Extension> extensions = Arrays.asList(TablesExtension.create());
-        Parser parser = Parser.builder().extensions(extensions).build();
-        Node document = parser.parse(markdownString);
-        HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
-        String content = renderer.render(document);
-        return content;
+        Node document = PARSER.parse(markdownString);
+        return HTML_RENDERER.render(document);
     }
 }
