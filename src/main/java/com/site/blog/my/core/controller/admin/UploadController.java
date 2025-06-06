@@ -4,6 +4,8 @@ import com.site.blog.my.core.config.Constants;
 import com.site.blog.my.core.util.MyBlogUtils;
 import com.site.blog.my.core.util.Result;
 import com.site.blog.my.core.util.ResultGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,8 @@ import java.util.UUID;
 @RequestMapping("/admin")
 public class UploadController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
     @PostMapping({"/upload/file"})
     @ResponseBody
     public Result upload(HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) throws URISyntaxException {
@@ -48,7 +52,7 @@ public class UploadController {
         File destFile = new File(Constants.FILE_UPLOAD_DIC + newFileName);
         try {
             if (!fileDirectory.exists()) {
-                if (!fileDirectory.mkdir()) {
+                if (!fileDirectory.mkdirs()) {
                     throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
                 }
             }
@@ -57,7 +61,7 @@ public class UploadController {
             resultSuccess.setData(MyBlogUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
             return resultSuccess;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("文件上传失败", e);
             return ResultGenerator.genFailResult("文件上传失败");
         }
     }
