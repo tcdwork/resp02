@@ -9,13 +9,12 @@ public interface AdminUserMapper {
     int insertSelective(AdminUser record);
 
     /**
-     * 登陆方法
+     * 根据用户名获取用户信息
      *
      * @param userName
-     * @param password
      * @return
      */
-    AdminUser login(@Param("userName") String userName, @Param("password") String password);
+    AdminUser login(@Param("userName") String userName);
 
     AdminUser selectByPrimaryKey(Integer adminUserId);
 
