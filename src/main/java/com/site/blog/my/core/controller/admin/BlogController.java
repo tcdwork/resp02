@@ -8,6 +8,8 @@ import com.site.blog.my.core.util.MyBlogUtils;
 import com.site.blog.my.core.util.PageQueryUtil;
 import com.site.blog.my.core.util.Result;
 import com.site.blog.my.core.util.ResultGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -36,6 +38,8 @@ import java.util.Random;
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
+
+    private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
 
     @Resource
     private BlogService blogService;
@@ -201,7 +205,7 @@ public class BlogController {
         File fileDirectory = new File(Constants.FILE_UPLOAD_DIC);
         try {
             if (!fileDirectory.exists()) {
-                if (!fileDirectory.mkdir()) {
+                if (!fileDirectory.mkdirs()) {
                     throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
                 }
             }
@@ -209,9 +213,8 @@ public class BlogController {
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");
             response.getWriter().write("{\"success\": 1, \"message\":\"success\",\"url\":\"" + fileUrl + "\"}");
-        } catch (UnsupportedEncodingException e) {
-            response.getWriter().write("{\"success\":0}");
-        } catch (IOException e) {
+        } catch (Exception e) {
+            logger.error("Markdown文件上传失败", e);
             response.getWriter().write("{\"success\":0}");
         }
     }
