@@ -110,7 +110,7 @@ public class BlogController {
         if (!StringUtils.hasText(blogContent)) {
             return ResultGenerator.genFailResult("请输入文章内容");
         }
-        if (blogTags.trim().length() > 100000) {
+        if (blogContent.trim().length() > 100000) {
             return ResultGenerator.genFailResult("文章内容过长");
         }
         if (!StringUtils.hasText(blogCoverImage)) {
@@ -162,7 +162,7 @@ public class BlogController {
         if (!StringUtils.hasText(blogContent)) {
             return ResultGenerator.genFailResult("请输入文章内容");
         }
-        if (blogTags.trim().length() > 100000) {
+        if (blogContent.trim().length() > 100000) {
             return ResultGenerator.genFailResult("文章内容过长");
         }
         if (!StringUtils.hasText(blogCoverImage)) {
