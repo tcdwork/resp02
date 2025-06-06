@@ -20,10 +20,10 @@ public class LinkServiceImpl implements LinkService {
     private BlogLinkMapper blogLinkMapper;
 
     @Override
-    public PageResult getBlogLinkPage(PageQueryUtil pageUtil) {
+    public PageResult<BlogLink> getBlogLinkPage(PageQueryUtil pageUtil) {
         List<BlogLink> links = blogLinkMapper.findLinkList(pageUtil);
         int total = blogLinkMapper.getTotalLinks(pageUtil);
-        PageResult pageResult = new PageResult(links, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult<BlogLink> pageResult = new PageResult<>(links, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 

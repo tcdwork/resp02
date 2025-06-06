@@ -14,7 +14,7 @@ public interface CategoryService {
      * @param pageUtil
      * @return
      */
-    PageResult getBlogCategoryPage(PageQueryUtil pageUtil);
+    PageResult<BlogCategory> getBlogCategoryPage(PageQueryUtil pageUtil);
 
     int getTotalCategories();
 

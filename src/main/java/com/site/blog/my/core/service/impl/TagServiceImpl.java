@@ -23,10 +23,10 @@ public class TagServiceImpl implements TagService {
     private BlogTagRelationMapper relationMapper;
 
     @Override
-    public PageResult getBlogTagPage(PageQueryUtil pageUtil) {
+    public PageResult<BlogTag> getBlogTagPage(PageQueryUtil pageUtil) {
         List<BlogTag> tags = blogTagMapper.findTagList(pageUtil);
         int total = blogTagMapper.getTotalTags(pageUtil);
-        PageResult pageResult = new PageResult(tags, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult<BlogTag> pageResult = new PageResult<>(tags, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 

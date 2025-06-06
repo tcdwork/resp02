@@ -14,7 +14,7 @@ public interface LinkService {
      * @param pageUtil
      * @return
      */
-    PageResult getBlogLinkPage(PageQueryUtil pageUtil);
+    PageResult<BlogLink> getBlogLinkPage(PageQueryUtil pageUtil);
 
     int getTotalLinks();
 

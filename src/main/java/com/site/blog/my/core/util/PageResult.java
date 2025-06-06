@@ -11,7 +11,7 @@ import java.util.List;
  * @email 2449207463@qq.com
  * @link http://13blog.site
  */
-public class PageResult implements Serializable {
+public class PageResult<T> implements Serializable {
 
     //总记录数
     private int totalCount;
@@ -22,7 +22,7 @@ public class PageResult implements Serializable {
     //当前页数
     private int currPage;
     //列表数据
-    private List<?> list;
+    private List<T> list;
 
     /**
      * 分页
@@ -32,7 +32,7 @@ public class PageResult implements Serializable {
      * @param pageSize   每页记录数
      * @param currPage   当前页数
      */
-    public PageResult(List<?> list, int totalCount, int pageSize, int currPage) {
+    public PageResult(List<T> list, int totalCount, int pageSize, int currPage) {
         this.list = list;
         this.totalCount = totalCount;
         this.pageSize = pageSize;
@@ -72,11 +72,11 @@ public class PageResult implements Serializable {
         this.currPage = currPage;
     }
 
-    public List<?> getList() {
+    public List<T> getList() {
         return list;
     }
 
-    public void setList(List<?> list) {
+    public void setList(List<T> list) {
         this.list = list;
     }
 

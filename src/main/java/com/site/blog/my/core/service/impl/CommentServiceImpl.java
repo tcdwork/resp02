@@ -25,10 +25,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public PageResult getCommentsPage(PageQueryUtil pageUtil) {
+    public PageResult<BlogComment> getCommentsPage(PageQueryUtil pageUtil) {
         List<BlogComment> comments = blogCommentMapper.findBlogCommentList(pageUtil);
         int total = blogCommentMapper.getTotalBlogComments(pageUtil);
-        PageResult pageResult = new PageResult(comments, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult<BlogComment> pageResult = new PageResult<>(comments, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 
@@ -60,7 +60,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public PageResult getCommentPageByBlogIdAndPageNum(Long blogId, int page) {
+    public PageResult<BlogComment> getCommentPageByBlogIdAndPageNum(Long blogId, int page) {
         if (page < 1) {
             return null;
         }
@@ -74,7 +74,7 @@ public class CommentServiceImpl implements CommentService {
         List<BlogComment> comments = blogCommentMapper.findBlogCommentList(pageUtil);
         if (!CollectionUtils.isEmpty(comments)) {
             int total = blogCommentMapper.getTotalBlogComments(pageUtil);
-            PageResult pageResult = new PageResult(comments, total, pageUtil.getLimit(), pageUtil.getPage());
+            PageResult<BlogComment> pageResult = new PageResult<>(comments, total, pageUtil.getLimit(), pageUtil.getPage());
             return pageResult;
         }
         return null;

@@ -96,10 +96,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageResult getBlogsPage(PageQueryUtil pageUtil) {
+    public PageResult<Blog> getBlogsPage(PageQueryUtil pageUtil) {
         List<Blog> blogList = blogMapper.findBlogList(pageUtil);
         int total = blogMapper.getTotalBlogs(pageUtil);
-        PageResult pageResult = new PageResult(blogList, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult<Blog> pageResult = new PageResult<>(blogList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 
@@ -189,7 +189,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageResult getBlogsForIndexPage(int page) {
+    public PageResult<BlogListVO> getBlogsForIndexPage(int page) {
         Map params = new HashMap();
         params.put("page", page);
         //每页8条
@@ -199,7 +199,7 @@ public class BlogServiceImpl implements BlogService {
         List<Blog> blogList = blogMapper.findBlogList(pageUtil);
         List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
         int total = blogMapper.getTotalBlogs(pageUtil);
-        PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult<BlogListVO> pageResult = new PageResult<>(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 
@@ -229,7 +229,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageResult getBlogsPageByTag(String tagName, int page) {
+    public PageResult<BlogListVO> getBlogsPageByTag(String tagName, int page) {
         if (PatternUtil.validKeyword(tagName)) {
             BlogTag tag = tagMapper.selectByTagName(tagName);
             if (tag != null && page > 0) {
@@ -241,7 +241,7 @@ public class BlogServiceImpl implements BlogService {
                 List<Blog> blogList = blogMapper.getBlogsPageByTagId(pageUtil);
                 List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
                 int total = blogMapper.getTotalBlogsByTagId(pageUtil);
-                PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+                PageResult<BlogListVO> pageResult = new PageResult<>(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
                 return pageResult;
             }
         }
@@ -249,7 +249,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageResult getBlogsPageByCategory(String categoryName, int page) {
+    public PageResult<BlogListVO> getBlogsPageByCategory(String categoryName, int page) {
         if (PatternUtil.validKeyword(categoryName)) {
             BlogCategory blogCategory = categoryMapper.selectByCategoryName(categoryName);
             if ("默认分类".equals(categoryName) && blogCategory == null) {
@@ -266,7 +266,7 @@ public class BlogServiceImpl implements BlogService {
                 List<Blog> blogList = blogMapper.findBlogList(pageUtil);
                 List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
                 int total = blogMapper.getTotalBlogs(pageUtil);
-                PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+                PageResult<BlogListVO> pageResult = new PageResult<>(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
                 return pageResult;
             }
         }
@@ -274,7 +274,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageResult getBlogsPageBySearch(String keyword, int page) {
+    public PageResult<BlogListVO> getBlogsPageBySearch(String keyword, int page) {
         if (page > 0 && PatternUtil.validKeyword(keyword)) {
             Map param = new HashMap();
             param.put("page", page);
@@ -285,7 +285,7 @@ public class BlogServiceImpl implements BlogService {
             List<Blog> blogList = blogMapper.findBlogList(pageUtil);
             List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
             int total = blogMapper.getTotalBlogs(pageUtil);
-            PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+            PageResult<BlogListVO> pageResult = new PageResult<>(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
             return pageResult;
         }
         return null;
