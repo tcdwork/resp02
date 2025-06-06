@@ -19,7 +19,7 @@ public interface CommentService {
      * @param pageUtil
      * @return
      */
-    PageResult getCommentsPage(PageQueryUtil pageUtil);
+    PageResult<BlogComment> getCommentsPage(PageQueryUtil pageUtil);
 
     int getTotalComments();
 
@@ -55,5 +55,5 @@ public interface CommentService {
      * @param page
      * @return
      */
-    PageResult getCommentPageByBlogIdAndPageNum(Long blogId, int page);
+    PageResult<BlogComment> getCommentPageByBlogIdAndPageNum(Long blogId, int page);
 }

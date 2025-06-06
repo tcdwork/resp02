@@ -21,10 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
     private BlogMapper blogMapper;
 
     @Override
-    public PageResult getBlogCategoryPage(PageQueryUtil pageUtil) {
+    public PageResult<BlogCategory> getBlogCategoryPage(PageQueryUtil pageUtil) {
         List<BlogCategory> categoryList = blogCategoryMapper.findCategoryList(pageUtil);
         int total = blogCategoryMapper.getTotalCategories(pageUtil);
-        PageResult pageResult = new PageResult(categoryList, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult<BlogCategory> pageResult = new PageResult<>(categoryList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 

@@ -2,6 +2,7 @@ package com.site.blog.my.core.service;
 
 import com.site.blog.my.core.controller.vo.BlogDetailVO;
 import com.site.blog.my.core.controller.vo.SimpleBlogListVO;
+import com.site.blog.my.core.controller.vo.BlogListVO;
 import com.site.blog.my.core.entity.Blog;
 import com.site.blog.my.core.util.PageQueryUtil;
 import com.site.blog.my.core.util.PageResult;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface BlogService {
     String saveBlog(Blog blog);
 
-    PageResult getBlogsPage(PageQueryUtil pageUtil);
+    PageResult<Blog> getBlogsPage(PageQueryUtil pageUtil);
 
     Boolean deleteBatch(Integer[] ids);
 
@@ -39,7 +40,7 @@ public interface BlogService {
      * @param page
      * @return
      */
-    PageResult getBlogsForIndexPage(int page);
+    PageResult<BlogListVO> getBlogsForIndexPage(int page);
 
     /**
      * 首页侧边栏数据列表
@@ -64,7 +65,7 @@ public interface BlogService {
      * @param page
      * @return
      */
-    PageResult getBlogsPageByTag(String tagName, int page);
+    PageResult<BlogListVO> getBlogsPageByTag(String tagName, int page);
 
     /**
      * 根据分类获取文章列表
@@ -73,7 +74,7 @@ public interface BlogService {
      * @param page
      * @return
      */
-    PageResult getBlogsPageByCategory(String categoryId, int page);
+    PageResult<BlogListVO> getBlogsPageByCategory(String categoryId, int page);
 
     /**
      * 根据搜索获取文章列表
@@ -82,7 +83,7 @@ public interface BlogService {
      * @param page
      * @return
      */
-    PageResult getBlogsPageBySearch(String keyword, int page);
+    PageResult<BlogListVO> getBlogsPageBySearch(String keyword, int page);
 
     BlogDetailVO getBlogDetailBySubUrl(String subUrl);
 }
